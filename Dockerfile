@@ -16,7 +16,7 @@ RUN printf '%s\n' \
     '</Directory>' \
     '' \
     '<Directory /opt/static/public>' \
-    '    Options Indexes -FollowSymLinks' \
+    '    Options +Indexes -FollowSymLinks' \
     '    AllowOverride None' \
     '    Require all granted' \
     '</Directory>' \
