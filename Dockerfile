@@ -25,8 +25,10 @@ RUN printf '%s\n' \
     '    Options +Indexes -FollowSymLinks' \
     '    AllowOverride None' \
     '    Require all granted' \
+    '    DirectoryIndex index.php' \
     '    RewriteEngine On' \
     '    RewriteCond %{REQUEST_FILENAME} !-f' \
+    '    RewriteCond %{REQUEST_FILENAME} !-d' \
     '    RewriteRule ^ index.php [QSA,L]' \
     '</Directory>' \
     >> /etc/apache2/apache2.conf
