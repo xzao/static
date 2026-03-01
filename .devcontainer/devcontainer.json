@@ -1,0 +1,16 @@
+{
+	"name": "Static",
+	"image": "mcr.microsoft.com/devcontainers/php:0-8.2-bullseye",
+	"customizations": {
+		"vscode": {
+			"settings": { 
+				"php.validate.executablePath": "/usr/local/bin/php"
+			}
+		}
+	},
+	"forwardPorts": [
+		8000
+	],
+	"postCreateCommand": "make install",
+	"remoteUser": "root"
+}

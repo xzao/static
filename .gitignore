@@ -1,0 +1,9 @@
+# cache
+cache
+
+# env
+.env*
+!.env.sample
+
+# mnt
+mnt

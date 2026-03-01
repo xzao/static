@@ -1,0 +1,10 @@
+services:
+
+  static:
+    build: .
+    container_name: ${STATIC_CONTAINER_NAME:-static}
+    hostname: ${STATIC_HOSTNAME:-static}    
+    image: ${STATIC_IMAGE:-static}:${STATIC_VERSION:-latest}
+    ports:
+      - ${STATIC_PORT:-3232}:80
+    restart: unless-stopped
