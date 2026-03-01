@@ -24,10 +24,9 @@ RUN printf '%s\n' \
 
 
 #
-#   copy application
+#   workdir
 #
 WORKDIR /opt/static
-COPY public /opt/static/public
 
 
 #

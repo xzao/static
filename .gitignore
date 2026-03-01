@@ -7,3 +7,7 @@ cache
 
 # mnt
 mnt
+
+# public
+public/*
+!public/index.php
