@@ -22,7 +22,7 @@ RUN printf '%s\n' \
     '</Directory>' \
     '' \
     '<Directory /opt/static/public>' \
-    '    Options -Indexes +SymLinksIfOwnerMatch' \
+    '    Options -Indexes +FollowSymLinks' \
     '    AllowOverride None' \
     '    Require all granted' \
     '    DirectoryIndex index.php' \
