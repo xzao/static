@@ -22,14 +22,11 @@ RUN printf '%s\n' \
     '</Directory>' \
     '' \
     '<Directory /opt/static/public>' \
-    '    Options +Indexes +SymLinksIfOwnerMatch' \
+    '    Options -Indexes +SymLinksIfOwnerMatch' \
     '    AllowOverride None' \
     '    Require all granted' \
     '    DirectoryIndex index.php' \
-    '    RewriteEngine On' \
-    '    RewriteCond %{REQUEST_FILENAME} !-f' \
-    '    RewriteCond %{REQUEST_FILENAME} !-d' \
-    '    RewriteRule ^ index.php [QSA,L]' \
+    '    FallbackResource /index.php' \
     '</Directory>' \
     >> /etc/apache2/apache2.conf
 
