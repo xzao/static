@@ -94,9 +94,18 @@ $isCli     = (
 #
 #   base url
 #
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-$host     = $_SERVER['HTTP_HOST'];
-$baseUrl  = $protocol . '://' . $host;
+if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+    $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'];
+} elseif (!empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] === 'on') {
+    $protocol = 'https';
+} elseif (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+    $protocol = 'https';
+} else {
+    $protocol = 'http';
+}
+
+$host    = $_SERVER['HTTP_HOST'];
+$baseUrl = $protocol . '://' . $host;
 
 
 #
