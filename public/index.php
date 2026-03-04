@@ -242,8 +242,15 @@ function formatSize($bytes) {
             text-decoration: none;
             color:           inherit;
             transition:      all 0.2s ease;
-            cursor:          pointer;
             position:        relative;
+        }
+        
+        a.item {
+            cursor: pointer;
+        }
+        
+        div.item {
+            cursor: default;
         }
         
         .item-wrapper:hover .item {
@@ -305,9 +312,9 @@ function formatSize($bytes) {
             color:     #a1a1aa;
         }
         
+        .download-link,
         .open-link {
             position:        absolute;
-            right:           20px;
             top:             16px;
             color:           #52525b;
             font-size:       18px;
@@ -319,6 +326,15 @@ function formatSize($bytes) {
             filter:          grayscale(100%);
         }
         
+        .download-link {
+            right: 60px;
+        }
+        
+        .open-link {
+            right: 20px;
+        }
+        
+        .download-link:hover,
         .open-link:hover {
             color: #71717a;
         }
@@ -471,7 +487,11 @@ function formatSize($bytes) {
             <?php else: ?>
                 <?php foreach ($allItems as $item): ?>
                 <div class="item-wrapper <?= $item['type'] === 'file' ? 'has-commands' : '' ?>">
-                    <a href="<?= htmlspecialchars($item['path']) ?><?= $item['type'] === 'dir' ? '/' : '' ?>" class="item">
+                    <?php if ($item['type'] === 'dir'): ?>
+                    <a href="<?= htmlspecialchars($item['path']) ?>/" class="item">
+                    <?php else: ?>
+                    <div class="item">
+                    <?php endif; ?>
                         <div class="icon"><?= $item['type'] === 'dir' ? '📁' : '📄' ?></div>
                         <div class="item-info">
                             <span class="item-name">
@@ -486,9 +506,14 @@ function formatSize($bytes) {
                             </div>
                         </div>
                         <?php if ($item['type'] === 'file'): ?>
+                        <a href="<?= htmlspecialchars($item['path']) ?>" download class="download-link" onclick="event.stopPropagation()">⬇</a>
                         <a href="<?= htmlspecialchars($item['path']) ?>" class="open-link" onclick="event.stopPropagation()">↗</a>
                         <?php endif; ?>
+                    <?php if ($item['type'] === 'dir'): ?>
                     </a>
+                    <?php else: ?>
+                    </div>
+                    <?php endif; ?>
                     <?php if ($item['type'] === 'file'): ?>
                     <div class="commands">
                         <div class="command-row">
