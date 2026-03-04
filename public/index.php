@@ -45,7 +45,7 @@ $files = [];
 $dirs  = [];
 
 foreach ($items as $item) {
-    if ($item === '.' || $item === 'index.php') continue;
+    if ($item === '.' || $item === '..' || $item === 'index.php') continue;
     
     $fullPath = $currentDir . '/' . $item;
     $webPath = rtrim($relativePath, '/') . '/' . $item;
@@ -160,7 +160,7 @@ function formatSize($bytes) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index of <?= htmlspecialchars($relativePath ?: '/') ?></title>
+    <title><?= htmlspecialchars($relativePath ?: '/') ?></title>
     <style>
         /*
         *   base reset
@@ -247,6 +247,19 @@ function formatSize($bytes) {
         }
         
         .item-wrapper:hover .item {
+            background: #27272a;
+        }
+        
+        .item-wrapper.disabled {
+            opacity: 0.4;
+        }
+        
+        .item-wrapper.disabled .item {
+            cursor: default;
+            pointer-events: none;
+        }
+        
+        .item-wrapper.disabled:hover .item {
             background: #27272a;
         }
         
@@ -437,17 +450,18 @@ function formatSize($bytes) {
 <body>
     <div class="container">
         <div class="items">
-            <?php if ($relativePath !== '' && $relativePath !== '/'): ?>
-            <div class="item-wrapper">
-                <a href="../" class="item">
+            <?php 
+            $isRoot = ($relativePath === '' || $relativePath === '/');
+            ?>
+            <div class="item-wrapper <?= $isRoot ? 'disabled' : '' ?>">
+                <a href="<?= $isRoot ? '#' : '../' ?>" class="item">
                     <div class="icon">📁</div>
                     <div class="item-info">
                         <span class="item-name">..</span>
-                        <div class="item-meta">Parent directory</div>
+                        <div class="item-meta">Directory</div>
                     </div>
                 </a>
             </div>
-            <?php endif; ?>
             
             <?php if (empty($allItems)): ?>
             <div class="empty">
