@@ -13,7 +13,7 @@ RUN a2enmod rewrite
 #
 #   docroot
 #
-RUN sed -i 's,DocumentRoot /var/www/html,DocumentRoot /opt/static/public,g' '/etc/apache2/sites-available/000-default.conf'
+RUN sed -i 's,DocumentRoot /var/www/html,DocumentRoot /opt/static/var,g' '/etc/apache2/sites-available/000-default.conf'
 RUN printf '%s\n' \
     '<Directory />' \
     '    Options None' \
@@ -21,13 +21,18 @@ RUN printf '%s\n' \
     '    Require all denied' \
     '</Directory>' \
     '' \
-    '<Directory /opt/static/public>' \
+    '<Directory /opt/static/var>' \
     '    Options -Indexes +FollowSymLinks' \
     '    AllowOverride None' \
     '    Require all granted' \
     '    RewriteEngine On' \
     '    RewriteCond %{REQUEST_FILENAME} !-f' \
-    '    RewriteRule ^ /index.php [L]' \
+    '    RewriteCond %{REQUEST_FILENAME} !-d' \
+    '    RewriteRule ^ /opt/static/src/index.php [L]' \
+    '</Directory>' \
+    '' \
+    '<Directory /opt/static/src>' \
+    '    Require all granted' \
     '</Directory>' \
     >> /etc/apache2/apache2.conf
 

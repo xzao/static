@@ -14,9 +14,10 @@ The server is configured through environment variables in `.env`:
 - `STATIC_PORT` - Port to expose (default: 3232)
 - `STATIC_CONTAINER_NAME` - Container name (default: static)
 - `STATIC_HOSTNAME` - Container hostname (default: static)
-- `STATIC_VOLUMES_PUBLIC` - Path to public files (default: ./public)
+- `STATIC_VOLUMES_VAR` - Path to static files (default: ./var)
+- `STATIC_VOLUMES_SRC` - Path to source files (default: ./src)
 
-Place your files in the `public/` directory. The server will automatically generate directory listings and serve files with appropriate MIME types.
+Place your files in the `var/` directory. The server will automatically generate directory listings and serve files with appropriate MIME types. Requests for non-existent files are routed to `src/index.php`.
 
 ## Installation
 
@@ -29,7 +30,7 @@ The Makefile provides commands for managing the application:
 - `make shell` to access the container
 - `make upgrade` to force recreate containers
 
-If you prefer running directly on your system, ensure you have PHP 8.2+ and Apache installed, then point your web server to the `public/` directory.
+If you prefer running directly on your system, ensure you have PHP 8.2+ and Apache installed, then point your web server to the `var/` directory as DocumentRoot with fallback routing to `src/index.php`.
 
 ## Development
 

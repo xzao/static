@@ -8,5 +8,6 @@ services:
     ports:
       - ${STATIC_PORT:-3232}:80
     volumes:
-      - ${STATIC_VOLUMES_PUBLIC:-./public}:/opt/static/public
+      - ${STATIC_VOLUMES_VAR:-./var}:/opt/static/var
+      - ${STATIC_VOLUMES_SRC:-./src}:/opt/static/src
     restart: unless-stopped

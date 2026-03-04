@@ -8,7 +8,7 @@ $relativePath = urldecode($relativePath);
 $relativePath = str_replace(['../', '..\\'], '', $relativePath);
 $relativePath = '/' . trim($relativePath, '/');
 
-$rootDir = __DIR__;
+$rootDir = realpath(__DIR__ . '/../var');
 
 if ($relativePath === '/' || $relativePath === '') {
     $currentDir = $rootDir;
@@ -438,6 +438,17 @@ function formatSize($bytes) {
             color:      #71717a;
         }
         
+        .empty-icon {
+            width:          40px;
+            height:         40px;
+            display:        flex;
+            align-items:    center;
+            justify-content: center;
+            font-size:      20px;
+            filter:         grayscale(100%) brightness(0.6);
+            margin:         0 auto 16px;
+        }
+        
         
         /*
         *   responsive
@@ -481,7 +492,7 @@ function formatSize($bytes) {
             
             <?php if (empty($allItems)): ?>
             <div class="empty">
-                <div style="font-size: 48px; margin-bottom: 16px;">📭</div>
+                <div class="empty-icon">📭</div>
                 <div>This directory is empty</div>
             </div>
             <?php else: ?>

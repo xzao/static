@@ -11,3 +11,6 @@ mnt
 # public
 public/*
 !public/index.php
+
+# var
+var
