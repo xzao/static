@@ -5,7 +5,9 @@ A lightweight static file server for hosting intranet resources and configuratio
 Static provides a simple, efficient way to serve files across your internal network. Ideal for distributing public keys, certificates, configuration files, and other non-sensitive resources to systems within your infrastructure.
 
 **Preview #1**
-![Screenshot](docs/screenshots/preview-1.png)
+<p align="center">
+  <img src="docs/screenshots/preview-1.png" alt="Screenshot" width="600">
+</p>
 
 ## Configuration
 
