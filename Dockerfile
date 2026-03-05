@@ -25,7 +25,6 @@ RUN printf '%s\n' \
     '    Options -Indexes +FollowSymLinks' \
     '    AllowOverride None' \
     '    Require all granted' \
-    '    FallbackResource /opt/static/src/index.php' \
     '</Directory>' \
     '' \
     '<Directory /opt/static/src>' \
@@ -33,6 +32,18 @@ RUN printf '%s\n' \
     '    Require all granted' \
     '</Directory>' \
     >> /etc/apache2/apache2.conf
+
+RUN printf '%s\n' \
+    'Alias /___router___ /opt/static/src/index.php' \
+    '' \
+    '<VirtualHost *:80>' \
+    '    DocumentRoot /opt/static/var' \
+    '    RewriteEngine On' \
+    '    RewriteCond %{REQUEST_FILENAME} !-f' \
+    '    RewriteCond %{REQUEST_FILENAME} !-d' \
+    '    RewriteRule ^ /___router___ [L]' \
+    '</VirtualHost>' \
+    > /etc/apache2/sites-available/000-default.conf
 
 
 #
