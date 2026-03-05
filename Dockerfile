@@ -25,13 +25,11 @@ RUN printf '%s\n' \
     '    Options -Indexes +FollowSymLinks' \
     '    AllowOverride None' \
     '    Require all granted' \
-    '    RewriteEngine On' \
-    '    RewriteCond %{REQUEST_FILENAME} !-f' \
-    '    RewriteCond %{REQUEST_FILENAME} !-d' \
-    '    RewriteRule ^ /opt/static/src/index.php [L]' \
+    '    FallbackResource /opt/static/src/index.php' \
     '</Directory>' \
     '' \
     '<Directory /opt/static/src>' \
+    '    Options -Indexes' \
     '    Require all granted' \
     '</Directory>' \
     >> /etc/apache2/apache2.conf
