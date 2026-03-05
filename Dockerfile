@@ -33,17 +33,7 @@ RUN printf '%s\n' \
     '</Directory>' \
     >> /etc/apache2/apache2.conf
 
-RUN printf '%s\n' \
-    'Alias /___router___ /opt/static/src/index.php' \
-    '' \
-    '<VirtualHost *:80>' \
-    '    DocumentRoot /opt/static/var' \
-    '    RewriteEngine On' \
-    '    RewriteCond %{REQUEST_FILENAME} !-f' \
-    '    RewriteCond %{REQUEST_FILENAME} !-d' \
-    '    RewriteRule ^ /___router___ [L]' \
-    '</VirtualHost>' \
-    > /etc/apache2/sites-available/000-default.conf
+RUN sed -i '/<\/VirtualHost>/i \    RewriteEngine On\n    RewriteCond %{REQUEST_FILENAME} !-f\n    RewriteCond %{REQUEST_FILENAME} !-d\n    RewriteRule ^ /opt/static/src/index.php [L]' /etc/apache2/sites-available/000-default.conf
 
 
 #
