@@ -6,7 +6,7 @@ Static provides a simple, efficient way to serve files across your internal netw
 
 **Preview #1**
 <p align="center">
-  <img src="docs/screenshots/preview-1.png" alt="Screenshot" width="600">
+  <img src="docs/screenshots/preview-1.png" alt="Screenshot" width="400">
 </p>
 
 ## Configuration
