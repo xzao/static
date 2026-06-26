@@ -534,14 +534,14 @@ function formatSize($bytes) {
                     <div class="commands">
                         <div class="command-row">
                             <div class="command-label">curl</div>
-                            <div class="command-text" onclick="copyToClipboard(this, <?= json_encode($curlCmd) ?>)">
+                            <div class="command-text" data-copy="<?= htmlspecialchars($curlCmd, ENT_QUOTES, 'UTF-8') ?>" onclick="copyToClipboard(this)">
                                 <?= htmlspecialchars($curlCmd) ?>
                                 <span class="copy-btn">📋</span>
                             </div>
                         </div>
                         <div class="command-row">
                             <div class="command-label">wget</div>
-                            <div class="command-text" onclick="copyToClipboard(this, <?= json_encode($wgetCmd) ?>)">
+                            <div class="command-text" data-copy="<?= htmlspecialchars($wgetCmd, ENT_QUOTES, 'UTF-8') ?>" onclick="copyToClipboard(this)">
                                 <?= htmlspecialchars($wgetCmd) ?>
                                 <span class="copy-btn">📋</span>
                             </div>
@@ -558,10 +558,11 @@ function formatSize($bytes) {
         //
         //  copy to clipboard
         //
-        function copyToClipboard(element, text) {
+        function copyToClipboard(element) {
             event.preventDefault();
             event.stopPropagation();
             
+            const text = element.getAttribute('data-copy');
             const icon = element.querySelector('.copy-btn');
             
             function showSuccess() {
