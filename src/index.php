@@ -526,18 +526,23 @@ function formatSize($bytes) {
                     </div>
                     <?php endif; ?>
                     <?php if ($item['type'] === 'file'): ?>
+                    <?php
+                        $fileUrl = $baseUrl . $item['path'];
+                        $curlCmd = 'curl -o "' . $item['name'] . '" "' . $fileUrl . '"';
+                        $wgetCmd = 'wget "' . $fileUrl . '"';
+                    ?>
                     <div class="commands">
                         <div class="command-row">
                             <div class="command-label">curl</div>
-                            <div class="command-text" onclick="copyToClipboard(this, 'curl -O <?= htmlspecialchars($baseUrl . $item['path']) ?>')">
-                                curl -O <?= htmlspecialchars($baseUrl . $item['path']) ?>
+                            <div class="command-text" onclick="copyToClipboard(this, <?= json_encode($curlCmd) ?>)">
+                                <?= htmlspecialchars($curlCmd) ?>
                                 <span class="copy-btn">📋</span>
                             </div>
                         </div>
                         <div class="command-row">
                             <div class="command-label">wget</div>
-                            <div class="command-text" onclick="copyToClipboard(this, 'wget <?= htmlspecialchars($baseUrl . $item['path']) ?>')">
-                                wget <?= htmlspecialchars($baseUrl . $item['path']) ?>
+                            <div class="command-text" onclick="copyToClipboard(this, <?= json_encode($wgetCmd) ?>)">
+                                <?= htmlspecialchars($wgetCmd) ?>
                                 <span class="copy-btn">📋</span>
                             </div>
                         </div>
