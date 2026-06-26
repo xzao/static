@@ -559,21 +559,44 @@ function formatSize($bytes) {
             
             const icon = element.querySelector('.copy-btn');
             
-            navigator.clipboard.writeText(text).then(function() {
+            function showSuccess() {
                 const originalIcon = icon.textContent;
                 icon.textContent = '✓';
                 icon.classList.add('copied');
-                
                 setTimeout(function() {
                     icon.textContent = originalIcon;
                     icon.classList.remove('copied');
                 }, 2000);
-            }).catch(function(err) {
+            }
+            
+            function showFailure() {
                 icon.textContent = '✗';
                 setTimeout(function() {
                     icon.textContent = '📋';
                 }, 2000);
-            });
+            }
+            
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(showSuccess).catch(showFailure);
+                return;
+            }
+            
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                if (document.execCommand('copy')) {
+                    showSuccess();
+                } else {
+                    showFailure();
+                }
+            } catch (err) {
+                showFailure();
+            }
+            document.body.removeChild(textarea);
         }
         
         
