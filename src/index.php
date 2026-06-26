@@ -537,7 +537,8 @@ function formatSize($bytes) {
                     <?php if ($item['type'] === 'file'): ?>
                     <?php
                         $fileUrl = $baseUrl . $item['path'];
-                        $curlCmd = 'curl -o "' . $item['name'] . '" "' . $fileUrl . '"';
+                        $curlUrl = $baseUrl . implode('/', array_map('rawurlencode', explode('/', $item['path'])));
+                        $curlCmd = 'curl -o "' . $item['name'] . '" "' . $curlUrl . '"';
                         $wgetCmd = 'wget "' . $fileUrl . '"';
                     ?>
                     <div class="commands">
