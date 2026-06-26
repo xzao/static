@@ -380,34 +380,43 @@ function formatSize($bytes) {
             flex-shrink:    0;
         }
         
-        .command-text {
+        .command-box {
             flex:           1;
-            font-family:    "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace;
-            font-size:      12px;
-            color:          #d4d4d8;
+            min-width:      0;
+            display:        flex;
+            align-items:    stretch;
             background:     #18181b;
-            padding:        8px 40px 8px 12px;
-            overflow-x:     auto;
-            white-space:    nowrap;
-            position:       relative;
             cursor:         pointer;
             transition:     background 0.15s;
             pointer-events: all;
         }
         
-        .command-text:hover {
+        .command-box:hover {
             background: #27272a;
         }
         
+        .command-scroll {
+            flex:       1;
+            min-width:  0;
+            overflow-x: auto;
+        }
+        
+        .command-text {
+            font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace;
+            font-size:   12px;
+            color:       #d4d4d8;
+            padding:     8px 12px;
+            white-space: nowrap;
+        }
+        
         .copy-btn {
-            position:        absolute;
-            right:           8px;
-            top:             50%;
-            transform:       translateY(-50%);
+            flex-shrink:     0;
+            align-self:      center;
             background:      transparent;
             color:           #52525b;
             border:          none;
-            padding:         4px;
+            border-left:     1px solid #27272a;
+            padding:         8px 10px;
             font-size:       16px;
             cursor:          pointer;
             transition:      all 0.15s;
@@ -418,7 +427,7 @@ function formatSize($bytes) {
             filter:          grayscale(100%);
         }
         
-        .command-text:hover .copy-btn {
+        .command-box:hover .copy-btn {
             color:  #71717a;
             filter: grayscale(100%);
         }
@@ -534,15 +543,19 @@ function formatSize($bytes) {
                     <div class="commands">
                         <div class="command-row">
                             <div class="command-label">curl</div>
-                            <div class="command-text" data-copy="<?= htmlspecialchars($curlCmd, ENT_QUOTES, 'UTF-8') ?>" onclick="copyToClipboard(this)">
-                                <?= htmlspecialchars($curlCmd) ?>
+                            <div class="command-box" data-copy="<?= htmlspecialchars($curlCmd, ENT_QUOTES, 'UTF-8') ?>" onclick="copyToClipboard(this)">
+                                <div class="command-scroll">
+                                    <div class="command-text"><?= htmlspecialchars($curlCmd) ?></div>
+                                </div>
                                 <span class="copy-btn">📋</span>
                             </div>
                         </div>
                         <div class="command-row">
                             <div class="command-label">wget</div>
-                            <div class="command-text" data-copy="<?= htmlspecialchars($wgetCmd, ENT_QUOTES, 'UTF-8') ?>" onclick="copyToClipboard(this)">
-                                <?= htmlspecialchars($wgetCmd) ?>
+                            <div class="command-box" data-copy="<?= htmlspecialchars($wgetCmd, ENT_QUOTES, 'UTF-8') ?>" onclick="copyToClipboard(this)">
+                                <div class="command-scroll">
+                                    <div class="command-text"><?= htmlspecialchars($wgetCmd) ?></div>
+                                </div>
                                 <span class="copy-btn">📋</span>
                             </div>
                         </div>
